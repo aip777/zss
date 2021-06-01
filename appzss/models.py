@@ -26,3 +26,11 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+class Address(models.Model):
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False)
+    house_number = models.CharField(max_length=100, blank=False)
+    road_number = models.IntegerField()
+
+    def __str__(self):
+        return self.name
