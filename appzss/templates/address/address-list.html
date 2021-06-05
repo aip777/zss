@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 col-md-12">
+        <div class="card ">
+            <div class="card-header py-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fs-17 font-weight-600 mb-0">Address List</h6>
+                    </div>
+
+                    <div class="text-right">
+                        <a href="{% url 'add-address' %}"
+                           class="btn btn-success btn-sm mr-1"><i class="fas fa-plus mr-1"></i>Add Address</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div id="foodList_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <table class="table display table-bordered table-striped table-hover dataTable dtr-inline"
+                               cellspacing="0" width="100%" id="kitchenStaffList" role="grid" style="width: 100%;">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Sl">Sl</th>
+                                <th class="sorting_asc" rowspan="1" colspan="1" aria-sort="ascending">Name</th>
+                                <th class="sorting_asc" rowspan="1" colspan="1" aria-sort="ascending">State</th>
+                                <th class="sorting_asc" rowspan="1" colspan="1" aria-sort="ascending">House Number</th>
+                                <th class="sorting_asc" rowspan="1" colspan="1" aria-sort="ascending">Road Number</th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Edit</th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Delete</th>
+                                
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for address in address_item %}
+                            <tr role="row" class="odd">
+                                <td tabindex="0">{{ address.id }}</td>
+                                <td width="20%"> {{ address.name }}</td>
+                                <td width="20%"> {{ address.state }}</td>
+                                <td width="20%"> {{ address.house_number }}</td>
+                                <td width="20%"> {{ address.road_number }}</td>
+                                 
+                            
+
+                                <td width="20%">
+                                   <a href="{% url 'update-address' address.id %}"
+                                               class="btn btn-success-soft btn-sm" data-toggle="tooltip"
+                                               data-placement="left"
+                                               title="Update"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                            </td>   
+
+                                <td width="20%">         
+                                   <a onclick="return confirm('Are You Sure ?')"
+                                       href="{% url 'address-delete' address.id %}"
+                                       class="btn btn-danger-soft btn-sm" data-toggle="tooltip" data-placement="right"
+                                       title="Delete "><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+                                    </td>
+ 
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
