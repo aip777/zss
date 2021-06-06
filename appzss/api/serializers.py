@@ -7,7 +7,7 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields =[
-            'id'
+            'id',
             'name',
             'latitude',
             'longitude',
@@ -17,6 +17,7 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class StateSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = State
         fields =[

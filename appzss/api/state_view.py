@@ -15,10 +15,17 @@ class StateListAPI(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         qs = State.objects.all()
-        state = State.objects.all()
+        country_obj = Country.objects.all()
         state_obj = self.request.GET.get('state')
+        country = self.request.GET.get('country')
+         
         if state_obj is not None:
-            qs = state.filter(name__icontains=state_obj)
+            qs = qs.filter(name__icontains=state_obj)
+        
+        elif country is not None:
+            country_obj = country_obj.filter(name__icontains=country)
+            for contry_id in country_obj:
+                qs = qs.filter(country=contry_id.id)
         return qs
     
     def post(self, request, *args, **kwargs):

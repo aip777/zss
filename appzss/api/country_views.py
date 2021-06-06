@@ -30,23 +30,13 @@ class CountryListAPI(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         qs = Country.objects.all()
-        state = State.objects.all()
         country = self.request.GET.get('country')
         code = self.request.GET.get('code')
 
-        state_obj = self.request.GET.get('state')
-        country_to_state = self.request.GET.get('countryname')
-        
         if country is not None:
             qs = qs.filter(name__icontains=country)
         elif code is not None:
             qs = qs.filter(code__icontains=code)
-
-        elif state_obj is not None:
-            qs = state.filter(name__icontains=state_obj)
-
-        elif country_to_state is not None:
-            qs = state.filter(name__icontains=country_to_state)
 
         return qs
     

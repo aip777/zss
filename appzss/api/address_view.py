@@ -15,20 +15,39 @@ class AddressListAPI(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         qs = Address.objects.all()
-        state = State.objects.all()
+        state_object = State.objects.all()
         state_obj = self.request.GET.get('state')
 
         house_number = self.request.GET.get('house')
         road_number = self.request.GET.get('road')
+        details_address = self.request.GET.get('address')
+
         if house_number is not None:
             qs = qs.filter(house_number__icontains=house_number)
         elif road_number is not None:
             qs = qs.filter(road_number__icontains=road_number)
         
         elif state_obj is not None:
-            state_item = state.filter(name__icontains=state_obj)
-            for id in state_item:
-                qs = qs.filter(state=id.id)
+            state_item = state_object.filter(name__icontains=state_obj)
+            for state_id in state_item:
+                print(state_id.id)
+                qs = qs.filter(state=state_id.id)
+
+        elif details_address is not None:
+            address = qs.filter(name__icontains=details_address)
+            qs = []
+            for address_obj in address:
+                state_id = address_obj.state
+                qs.append(address_obj)
+                state_objects = state_object.filter(id__icontains=state_id)
+                for obj in state_objects:
+                    country_id = obj.country
+                    state_name = obj.name
+                    qs.append(obj)
+                    print('_____ddddd____________', country_id)
+                    print('_________________', state_name)
+                 
+                
         return qs
     
     def post(self, request, *args, **kwargs):

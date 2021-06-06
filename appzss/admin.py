@@ -18,5 +18,24 @@ class CountryAdmin(admin.ModelAdmin):
 
 admin.site.register(Country, CountryAdmin)
 
-admin.site.register(State)
-admin.site.register(Address)
+
+class StateAdmin(admin.ModelAdmin):
+  list_display = (
+    'id',
+    'name',
+    'country',
+  )
+  list_display_links = ('id', 'name')
+  list_per_page = 15
+
+admin.site.register(State, StateAdmin)
+
+class AddressAdmin(admin.ModelAdmin):
+  list_display = (
+    'id',
+    'name',
+    'state',
+  )
+  list_display_links = ('id', 'name')
+  list_per_page = 15
+admin.site.register(Address, AddressAdmin)
