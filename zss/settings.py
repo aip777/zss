@@ -40,10 +40,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'appzss',
     'widget_tweaks',
-    'crispy_forms'
+    'crispy_forms',
+    'accounts'
     
 ]
-
+AUTH_USER_MODEL = 'accounts.CustomUserModel'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -117,7 +118,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+LOGIN_URL = 'login'
 
 
 # Static files (CSS, JavaScript, Images)

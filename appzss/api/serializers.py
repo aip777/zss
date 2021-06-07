@@ -28,6 +28,8 @@ class StateSerializer(serializers.ModelSerializer):
     
 
 class AddressSerializer(serializers.ModelSerializer):
+    # state = serializers.SerializerMethodField(read_only=True)
+    
     class Meta:
         model = Address
         fields =[
@@ -37,3 +39,10 @@ class AddressSerializer(serializers.ModelSerializer):
             'house_number',
             'road_number',
         ]
+
+    def get_state(self, obj):
+        
+        data = {
+            "state":"se"
+        }
+        return "data"

@@ -43,7 +43,6 @@ class AddressListAPI(mixins.CreateModelMixin, generics.ListAPIView):
                 for obj in state_objects:
                     country_id = obj.country
                     state_name = obj.name
-                    qs.append(obj)
                     print('_____ddddd____________', country_id)
                     print('_________________', state_name)
                  
