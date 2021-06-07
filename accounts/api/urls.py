@@ -1,5 +1,6 @@
 from django.urls import path
-from accounts.api.views import CreateAccountAPI 
+from accounts.api.views import AuthView, RegisterAPIView
 urlpatterns = [
-    path('create-account/', CreateAccountAPI.as_view()),
+    path('login-api/', AuthView.as_view()),
+    path('register/', RegisterAPIView.as_view()),
 ]

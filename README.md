@@ -140,3 +140,24 @@
 
     Address Delete
     http://127.0.0.1:8000/api/address/6/
+
+### Login and Registration API
+    Login:
+
+    http://127.0.0.1:8000/account/login-api/
+
+    POST request: 
+        data = {
+        "email":"admin@admin.com",
+        "password":"admin"
+        }
+    
+    Registration:
+    http://127.0.0.1:8000/account/register/
+
+    POST Request:
+        data = {
+        "username":"emarn6",
+        "email":"emarn6@admin.com",
+        "password":"admin123"
+        }
