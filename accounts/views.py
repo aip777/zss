@@ -28,10 +28,6 @@ def register_view(request):
     """
     If logged in, redirects to dashboard, else redirects to log in page
     """
-
-    # if not request.user.is_admin:
-    #     messages.error(request, 'Not Enough Permissions')
-    #     return redirect('/')
     
     form = RegisterForm(request.POST or None)
     if form.is_valid():

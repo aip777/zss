@@ -17,20 +17,14 @@ class LoginForm(forms.Form):
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-
         user_qs = User.objects.filter(email=email)
-
         if not user_qs.exists():
             raise forms.ValidationError("Invalid credentials - user does not exists")
-
         user = user_qs.first()
-
         if not user.is_active:
             raise forms.ValidationError("Invalid credentials - user does not exists")
-
         if not user.check_password(password):
             raise forms.ValidationError("Credentials not correct")
-
         return super(LoginForm, self).clean(*args, **kwargs)
 
 
