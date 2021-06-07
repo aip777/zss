@@ -6,11 +6,11 @@ from rest_framework.authentication import SessionAuthentication
 
 from appzss.models import Country, State, Address
 from .serializers import AddressSerializer, StateSerializer
-
+from rest_framework.authentication import SessionAuthentication
 
 class AddressListAPI(mixins.CreateModelMixin, generics.ListAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticated]
+    authentication_classes      = [SessionAuthentication]
     serializer_class            = AddressSerializer
 
     def get_queryset(self):
@@ -32,30 +32,26 @@ class AddressListAPI(mixins.CreateModelMixin, generics.ListAPIView):
             for state_id in state_item:
                 print(state_id.id)
                 qs = qs.filter(state=state_id.id)
-
-        elif details_address is not None:
-            address = qs.filter(name__icontains=details_address)
-            qs = []
-            for address_obj in address:
-                state_id = address_obj.state
-                qs.append(address_obj)
-                state_objects = state_object.filter(id__icontains=state_id)
-                for obj in state_objects:
-                    country_id = obj.country
-                    state_name = obj.name
-                    print('_____ddddd____________', country_id)
-                    print('_________________', state_name)
-                 
-                
         return qs
+        # elif details_address is not None:
+        #     address = qs.filter(name__icontains=details_address)
+        #     qs = []
+        #     for address_obj in address:
+        #         state_id = address_obj.state
+        #         qs.append(address_obj)
+        #         state_objects = state_object.filter(id__icontains=state_id)
+        #         for obj in state_objects:
+        #             country_id = obj.country
+        #             state_name = obj.name
+        # return qs
     
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
         
 
 class AddressDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticated]
+    authentication_classes      = [SessionAuthentication]
     queryset                    = Address.objects.all()
     serializer_class            = AddressSerializer
     

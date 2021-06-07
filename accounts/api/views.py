@@ -31,7 +31,7 @@ class RegisterAPIView(APIView):
     permission_classes          = [permissions.AllowAny]
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return Response("details: You are already authenticated")
+            return Response("details: You are already authenticated", status=401)
         data = request.data
         username = data.get("username")
         email = data.get("email")
@@ -50,5 +50,4 @@ class RegisterAPIView(APIView):
             user = CustomUserModel.objects.create(username=username, email=email,is_active=is_active)
             user.set_password(password)
             user.save()
-            return Response(request)
-        return Response({"details": "Invalid Request"}, status=400)
+            return Response(user,request, status=200)

@@ -9,8 +9,8 @@ from .serializers import StateSerializer
 
 
 class StateListAPI(mixins.CreateModelMixin, generics.ListAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticated]
+    authentication_classes      = [SessionAuthentication]
     serializer_class            = StateSerializer
 
     def get_queryset(self):
@@ -33,8 +33,8 @@ class StateListAPI(mixins.CreateModelMixin, generics.ListAPIView):
         
 
 class StateDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticated]
+    authentication_classes      = [SessionAuthentication]
     queryset                    = State.objects.all()
     serializer_class            = StateSerializer
     

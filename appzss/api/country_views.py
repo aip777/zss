@@ -24,8 +24,8 @@ import pytz
 
 
 class CountryListAPI(mixins.CreateModelMixin, generics.ListAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticated]
+    authentication_classes      = [SessionAuthentication]
     serializer_class            = CountrySerializer
 
     def get_queryset(self):
@@ -52,8 +52,8 @@ class CountryListAPI(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class CountryDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticated]
+    authentication_classes      = [SessionAuthentication]
     queryset                    = Country.objects.all()
     serializer_class            = CountrySerializer
     
